@@ -7,6 +7,11 @@ latex chordpro pdf song book
 1. clone this repo
 2. Install anaconda/miniconda
    - install enviroment from `enviroment.yml`
+
+      ```shell
+      conda env create -f environment.yml
+      ```
+
 3. Install latex
 4. [Install ChordPro cli](https://www.chordpro.org/chordpro/chordpro-installation/)
 5. copy your chordpro and pdf files in `data/input/*`
