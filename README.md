@@ -44,6 +44,9 @@ latex chordpro pdf song book
 - [ChordPro cli tool (generate PDFs from chorpro files)](https://www.chordpro.org/chordpro/chordpro-file-format-specification/)
 - [LaTeX (merge pdf files and create song book as pdf with table of contents)](https://www.latex-project.org/)
 - [Jinja (Template Engine -> generate TeX files from python code)](https://palletsprojects.com/p/jinja/)
+- [Jupyter Lab (Web IDE for interactive python development)](https://jupyter.org/)
+  - I prefer Jupyter Notebooks for easy development with output between a few lines of code
+  - You could convert notebooks to *normal* python scripts
 
 ## Info, tips, readme
 
