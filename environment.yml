@@ -12,6 +12,7 @@ dependencies:
   - backcall=0.2.0=pyh9f0ad1d_0
   - backports=1.0=py_2
   - backports.functools_lru_cache=1.6.3=pyhd8ed1ab_0
+  - blas=1.0=openblas
   - bleach=3.3.0=pyh44b312d_0
   - brotlipy=0.7.0=py39hcbf5805_1001
   - ca-certificates=2020.12.5=h033912b_0
@@ -23,12 +24,12 @@ dependencies:
   - defusedxml=0.7.1=pyhd8ed1ab_0
   - entrypoints=0.3=pyhd8ed1ab_1003
   - idna=2.10=pyh9f0ad1d_0
-  - importlib-metadata=3.8.0=py39h6e9494a_0
+  - importlib-metadata=3.8.1=py39h6e9494a_0
   - ipykernel=5.5.0=py39h71a6800_1
   - ipython=7.22.0=py39h71a6800_0
   - ipython_genutils=0.2.0=py_1
   - jedi=0.18.0=py39h6e9494a_2
-  - jinja2=2.11.3=pyh44b312d_0
+  - jinja2=2.11.3=pyhd3eb1b0_0
   - json5=0.9.5=pyh9f0ad1d_0
   - jsonschema=3.2.0=pyhd8ed1ab_3
   - jupyter-packaging=0.7.12=pyhd8ed1ab_0
@@ -38,35 +39,32 @@ dependencies:
   - jupyterlab=3.0.12=pyhd8ed1ab_0
   - jupyterlab_pygments=0.1.2=pyh9f0ad1d_0
   - jupyterlab_server=2.3.0=pyhd8ed1ab_0
-  - libblas=3.9.0=8_openblas
-  - libcblas=3.9.0=8_openblas
-  - libcxx=11.1.0=habf9029_0
-  - libffi=3.3=h046ec9c_2
-  - libgfortran=5.0.0=9_3_0_h6c81a4c_20
-  - libgfortran5=9.3.0=h6c81a4c_20
-  - liblapack=3.9.0=8_openblas
-  - libopenblas=0.3.12=openmp_h54245bb_1
+  - libcxx=10.0.0=1
+  - libffi=3.3=hb1e8313_2
+  - libgfortran=3.0.1=h93005f0_2
+  - libopenblas=0.3.13=h7ddc91c_0
   - libsodium=1.0.18=hbcb3906_1
-  - llvm-openmp=11.1.0=hda6cdc1_0
-  - markupsafe=1.1.1=py39hcbf5805_3
+  - markupsafe=1.1.1=py39h9ed2024_0
   - mistune=0.8.4=py39hcbf5805_1003
   - nbclassic=0.2.6=pyhd8ed1ab_0
   - nbclient=0.5.3=pyhd8ed1ab_0
   - nbconvert=6.0.7=py39h6e9494a_3
   - nbformat=5.1.2=pyhd8ed1ab_1
-  - ncurses=6.2=h2e338ed_4
+  - nbstripout=0.3.9=pyh9f0ad1d_0
+  - ncurses=6.2=h0a44026_1
   - nest-asyncio=1.4.3=pyhd8ed1ab_0
   - notebook=6.3.0=py39h6e9494a_0
-  - numpy=1.20.1=py39h3c955ea_0
+  - numpy=1.19.2=py39h0fa1045_0
+  - numpy-base=1.19.2=py39h3a452eb_0
   - openssl=1.1.1k=h0d85af4_0
   - packaging=20.9=pyh44b312d_0
-  - pandas=1.2.3=py39h4d6be9b_0
+  - pandas=1.2.3=py39hb2f4e1b_0
   - pandoc=2.13=h0d85af4_0
   - pandocfilters=1.4.2=py_1
   - parso=0.8.1=pyhd8ed1ab_0
   - pexpect=4.8.0=pyh9f0ad1d_2
   - pickleshare=0.7.5=py_1003
-  - pip=21.0.1=pyhd8ed1ab_0
+  - pip=21.0.1=py39hecd8cb5_0
   - prometheus_client=0.9.0=pyhd3deb0d_0
   - prompt-toolkit=3.0.18=pyha770c72_0
   - ptyprocess=0.7.0=pyhd3deb0d_0
@@ -76,29 +74,30 @@ dependencies:
   - pyparsing=2.4.7=pyh9f0ad1d_0
   - pyrsistent=0.17.3=py39hcbf5805_2
   - pysocks=1.7.1=py39h6e9494a_3
-  - python=3.9.2=h2502468_0_cpython
-  - python-dateutil=2.8.1=py_0
+  - python=3.9.2=h88f2d9e_0
+  - python-dateutil=2.8.1=pyhd3eb1b0_0
   - python_abi=3.9=1_cp39
-  - pytz=2021.1=pyhd8ed1ab_0
-  - pyzmq=22.0.3=py39h7fec2f1_1
-  - readline=8.1=h05e3726_0
+  - pytz=2021.1=pyhd3eb1b0_0
+  - pyzmq=20.0.0=py39h23ab428_1
+  - readline=8.1=h9ed2024_0
   - requests=2.25.1=pyhd3deb0d_0
   - send2trash=1.5.0=py_0
-  - setuptools=49.6.0=py39h6e9494a_3
-  - six=1.15.0=pyh9f0ad1d_0
+  - setuptools=52.0.0=py39hecd8cb5_0
+  - six=1.15.0=py39hecd8cb5_0
   - sniffio=1.2.0=py39h6e9494a_1
-  - sqlite=3.35.3=h44b9ce1_0
+  - sqlite=3.35.2=hce871da_0
   - terminado=0.9.3=py39h6e9494a_0
   - testpath=0.4.4=py_0
-  - tk=8.6.10=h0419947_1
+  - tk=8.6.10=hb0a8c7a_0
   - tornado=6.1=py39hcbf5805_1
   - traitlets=5.0.5=py_0
-  - tzdata=2021a=he74cb21_0
+  - tzdata=2020f=h52ac0ba_0
   - urllib3=1.26.4=pyhd8ed1ab_0
   - wcwidth=0.2.5=pyh9f0ad1d_2
   - webencodings=0.5.1=py_1
-  - wheel=0.36.2=pyhd3deb0d_0
-  - xz=5.2.5=haf1e3a3_1
-  - zeromq=4.3.4=h1c7c35f_0
+  - wheel=0.36.2=pyhd3eb1b0_0
+  - xz=5.2.5=h1de35cc_0
+  - zeromq=4.3.4=h23ab428_0
   - zipp=3.4.1=pyhd8ed1ab_0
-  - zlib=1.2.11=h7795811_1010
+  - zlib=1.2.11=h1de35cc_3
+prefix: /Users/juliusheine/opt/miniconda3/envs/chordpro-song-book
