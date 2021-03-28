@@ -7,7 +7,7 @@ Import you chordpro and pdf files in different subfolders for each section
 - songs/sections
   - church songs
     - chordpro
-      - <chordprosongfiles.chordpro>
+      - <chordprosongfiles.cho>
     - pdf
       - <pdfsongfiles.pdf>
 
@@ -17,5 +17,5 @@ It is important to keep this structure because the scripts scrape this subfolder
 
 *Important*:
 
-- chordpro files must have the file extension `.chordpro`
+- chordpro files must have the file extension `.cho`
 - pdf files must have the file extension `.pdf`

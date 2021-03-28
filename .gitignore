@@ -416,3 +416,10 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# chordpro files
+*.chordpro
+*.cho
+
+# pdfs
+*.pdf
