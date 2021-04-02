@@ -9,7 +9,7 @@ latex chordpro pdf song book
 - [x] scan for chopro files in input folder
   - [x] find songs
   - [x] extract metadata
-- [ ] Generate individual pdfs from chordpro files
+- [x] Generate individual pdfs from chordpro files
 - [ ] scan for other songs (pdf files)
   - [ ] extract metadata
     - [ ] from filename
