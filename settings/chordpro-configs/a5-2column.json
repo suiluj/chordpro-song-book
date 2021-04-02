@@ -7,7 +7,7 @@
       // Columns, default one.
       "columns" : 2,
       // Transcoding.
-      "transcode" : "common",
+      "transcode" : "nashville",
       // Always decapoize.
       "decapo" : true,
     },
@@ -60,20 +60,20 @@
       "papersize" : "a5",
 
       // Space between columns, in pt.
-      "columnspace"  :  20,
+      "columnspace"  :  10,
 
       // Page margins.
       // Note that top/bottom exclude the head/footspace.
-      "margintop"    :  80,
-      "marginbottom" :  40,
-      "marginleft"   :  40,
-      "marginright"  :  40,
-      "headspace"    :  60,
-      "footspace"    :  20,
+      "margintop"    :  60,
+      "marginbottom" :  20,
+      "marginleft"   :  25,
+      "marginright"  :  25,
+      "headspace"    :  40,
+      "footspace"    :  10,
 
       // Special: head on first page only, add the headspace to
       // the other pages so they become larger.
-      "head-first-only" : false,
+      "head-first-only" : true,
 
       // Spacings.
       // Baseline distances as a factor of the font size.
@@ -172,13 +172,13 @@
 	      "title"     : null,
 	      "subtitle"  : null,
 	      // Footer is title -- page number.
-	      "footer"    : null,
+	      "footer"    : [ "", "%{title} - %{artist}", "" ],
 	  },
 	  // The first page of a song has:
 	  "title" : {
 	      // Title and subtitle.
-	      "title"     : [ "", "%{title}", "" ],
-	      "subtitle"  : [ "", "%{subtitle}", "" ],
+	      "title"     : [ "", "%{title} - %{artist}", "" ],
+	      "subtitle"  : [ "", "%{_key|Key: %{}}", "" ],
 	      // Footer with page number.
 	      "footer"    : null
 	  },
@@ -248,9 +248,13 @@
 	      "name" : "Helvetica-Bold",
 	      "size" : 14
 	  },
+	  "subtitle" : {
+		"name" : "Helvetica",
+		"size" : 10
+	},
 	  "text" : {
 	      "name" : "Helvetica",
-	      "size" : 12
+	      "size" : 11
 	  },
 	  "chord" : {
 	      "name" : "Helvetica-Oblique",
@@ -262,16 +266,16 @@
 	  },
 	  "comment" : {
 	      "name" : "Helvetica",
-	      "size" : 12,
+	      "size" : 11,
 	      "background" : "#E5E5E5"
 	  },
 	  "comment_italic" : {
 	      "name" : "Helvetica-Oblique",
-	      "size" : 12,
+	      "size" : 11,
 	  },
 	  "comment_box" : {
 	      "name" : "Helvetica",
-	      "size" : 12,
+	      "size" : 8,
 	      "frame" : 1
 	  },
 	  "tab" : {

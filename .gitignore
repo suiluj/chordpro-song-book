@@ -423,3 +423,6 @@ cython_debug/
 
 # pdfs
 *.pdf
+
+# saved info in pickles
+*.pickle

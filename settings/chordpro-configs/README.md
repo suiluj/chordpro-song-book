@@ -20,6 +20,7 @@
 - https://www.chordpro.org/chordpro/using-chordpro/
 - https://www.chordpro.org/chordpro/chordpro-fonts/#why-is-using-font-descriptions-important
 - https://www.chordpro.org/chordpro/chordpro-fonts/#examples
+- https://www.chordpro.org/chordpro/chordpro-configuration-format-strings/
 
 als erstes default config ausgeben lassen und alles rauslöschen, dass ich nicht verändere.
 https://www.chordpro.org/chordpro/chordpro-configuration-create-cli/
