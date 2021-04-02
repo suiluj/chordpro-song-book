@@ -43,7 +43,7 @@
     // "sorted": order the chords by key.
     "diagrams" : {
 	"auto"     :  false,
-	"show"     :  "all",
+	"show"     :  false,
 	"sorted"   :  false,
     },
 
@@ -172,7 +172,7 @@
 	      "title"     : null,
 	      "subtitle"  : null,
 	      // Footer is title -- page number.
-	      "footer"    : [ "%{title}", "", "%{page}" ],
+	      "footer"    : null,
 	  },
 	  // The first page of a song has:
 	  "title" : {
@@ -180,7 +180,7 @@
 	      "title"     : [ "", "%{title}", "" ],
 	      "subtitle"  : [ "", "%{subtitle}", "" ],
 	      // Footer with page number.
-	      "footer"    : [ "", "", "%{page}" ],
+	      "footer"    : null
 	  },
 	  // The very first output page is slightly different:
 	  "first" : {
@@ -245,11 +245,11 @@
 
       "fonts" : {
 	  "title" : {
-	      "name" : "Times-Bold",
+	      "name" : "Helvetica-Bold",
 	      "size" : 14
 	  },
 	  "text" : {
-	      "name" : "Times-Roman",
+	      "name" : "Helvetica",
 	      "size" : 12
 	  },
 	  "chord" : {
@@ -279,7 +279,7 @@
 	      "size" : 10
 	  },
 	  "toc" : {
-	      "name" : "Times-Roman",
+	      "name" : "Helvetica",
 	      "size" : 11
 	  },
 	  "grid" : {
