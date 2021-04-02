@@ -7,7 +7,7 @@
       // Columns, default one.
       "columns" : 2,
       // Transcoding.
-      "transcode" : "nashville",
+      "transcode" : "common",
       // Always decapoize.
       "decapo" : true,
     },

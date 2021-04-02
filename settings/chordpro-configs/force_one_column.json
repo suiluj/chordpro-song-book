@@ -1,0 +1,14 @@
+
+{
+    
+    // General settings, to be changed by legacy configs and
+    // command line.
+    "settings" : {
+      // Columns, default one.
+      "columns" : 1,
+      
+    },
+
+
+}
+// End of config.
