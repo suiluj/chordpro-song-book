@@ -19,6 +19,14 @@ latex chordpro pdf song book
   - [ ] include other pdfs (other songs, misc pdfs)
 - [x] Write songbook LaTeX
 
+**Future Ideas:**
+
+- [ ] Create Docker GitHub Package which starts Jupyter Lab and binds folder
+  - [ ] include jupyter lab
+  - [ ] include chordpro cli
+  - [ ] include python package install
+  - [ ] include latex binaries to generate pdf
+
 ## Getting Started
 
 1. clone this repo
