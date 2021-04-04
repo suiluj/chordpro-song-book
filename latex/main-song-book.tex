@@ -1,0 +1,127 @@
+%
+% Body text font is Palatino!
+%
+
+\documentclass[a5paper,pagesize,10pt,bibtotoc,pointlessnumbers,
+normalheadings,DIV=9,twoside=false]{scrbook}
+
+% twoside, openright
+\KOMAoptions{DIV=last}
+
+\usepackage{trajan}
+ 
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[scaled]{helvet}
+
+\usepackage[babel,german=guillemets]{csquotes}
+
+\usepackage{pdfpages}
+
+%\usepackage[sc]{mathpazo}
+%\linespread{1.05} 
+
+\setlength\parindent{0pt}
+
+% https://tex.stackexchange.com/questions/73862/how-can-i-make-a-clickable-table-of-contents
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+%	colorlinks,
+%	citecolor=black,
+%	filecolor=black,
+%	linkcolor=black,
+%	urlcolor=black
+}
+
+%\usepackage{verbatim} % for comments
+%\usepackage{listings} % for comments
+
+%\setlength{\parindent}{10pt}
+%\setlength{\parskip}{1.4ex plus 0.35ex minus 0.3ex}
+%\setlength{\parskip}{1.4ex plus 0.35ex minus 0.3ex}
+
+%\usepackage{blindtext}
+%\newcommand{\q}[1]{>>\textit{#1}<<}
+
+\newcommand{\VAR}[1]{}
+\newcommand{\BLOCK}[1]{}
+
+\newcommand*{\songsectionspath}{chapters/songs/sections}
+
+\title{DePoLi}   
+\author{Gemeinschaft Junges Ermland} 
+\date{\today} 
+
+
+\renewcommand\familydefault{\sfdefault}
+\begin{document}
+
+
+%=========================================
+\begin{titlepage}
+		\centering{
+			{\fontsize{40}{48}\selectfont 
+			DePoLi}
+		}\\
+			
+		\vspace{10mm}
+		\centering{\Large{Gemeinschaft Junges Ermland}}\\
+		
+		\vspace{10mm}
+		\centering{\small{(hier kommt natürlich noch ein cooles Cover hin)}}\\
+		
+		\vspace{\fill}
+		\centering \large{\today}
+\end{titlepage}
+
+
+%=========================================
+%\newpage{}
+%\thispagestyle {empty}
+%
+%\vspace*{2cm}
+%
+%\begin{center}
+%	\Large{\parbox{10cm}{
+%		\begin{raggedright}
+%		{\Large 
+%			\textit{Do what you think is interesting, 
+%			do something that you think is fun and worthwhile, 
+%			because otherwise you won’t do it well anyway.}
+%		}
+%	
+%		\vspace{.5cm}\hfill{---Brian W. Kernighan}
+%		\end{raggedright}
+%	}
+%}
+%\end{center}
+
+\tableofcontents
+
+\newpage
+
+\chapter{Info}
+
+In diesem Liederbuch werden die einzelnen Lieder als PDFs automatisch per Script eingebunden.
+
+\noindent lkjölkj
+asdf
+
+\noindent tasdfasdf
+
+\include{\songsectionspath/Testlieder}
+
+
+%=========================================
+%\blinddocument
+
+
+%=========================================
+%\begin{comment}
+%Just some notes, not visible in pdf.
+%\end{comment}
+
+
+\end{document}

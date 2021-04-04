@@ -1,0 +1,11 @@
+
+\chapter{\VAR{section_name}}
+\thispagestyle{empty}
+
+\BLOCK{ for song in songs }
+
+\includepdf[pages=-,addtotoc={
+	1,section,1,\VAR{song.metadata.title} - \VAR{song.metadata.artist},\VAR{song.metadata.title} - \VAR{song.metadata.artist}}]
+	{\VAR{song['pdf_file_path']}}
+
+\BLOCK{ endfor }

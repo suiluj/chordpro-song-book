@@ -426,3 +426,5 @@ cython_debug/
 
 # saved info in pickles
 *.pickle
+
+latex/chapters/songs/sections/*.tex
