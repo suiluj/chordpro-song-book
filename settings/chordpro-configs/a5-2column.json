@@ -246,7 +246,7 @@
       "fonts" : {
 	  "title" : {
 	      "name" : "Helvetica-Bold",
-	      "size" : 14
+	      "size" : 12
 	  },
 	  "subtitle" : {
 		"name" : "Helvetica",
@@ -254,24 +254,24 @@
 	},
 	  "text" : {
 	      "name" : "Helvetica",
-	      "size" : 11
+	      "size" : 9
 	  },
 	  "chord" : {
 	      "name" : "Helvetica-Oblique",
-	      "size" : 10
+	      "size" : 9
 	  },
 	  "chordfingers" : {
 	      "name" : "ZapfDingbats",
-	      "size" : 10
+	      "size" : 9
 	  },
 	  "comment" : {
 	      "name" : "Helvetica",
-	      "size" : 11,
+	      "size" : 9,
 	      "background" : "#E5E5E5"
 	  },
 	  "comment_italic" : {
 	      "name" : "Helvetica-Oblique",
-	      "size" : 11,
+	      "size" : 9,
 	  },
 	  "comment_box" : {
 	      "name" : "Helvetica",
@@ -280,15 +280,15 @@
 	  },
 	  "tab" : {
 	      "name" : "Courier",
-	      "size" : 10
+	      "size" : 9
 	  },
 	  "toc" : {
 	      "name" : "Helvetica",
-	      "size" : 11
+	      "size" : 9
 	  },
 	  "grid" : {
 	      "name" : "Helvetica",
-	      "size" : 10
+	      "size" : 9
 	  },
       },
 

@@ -14,10 +14,10 @@ latex chordpro pdf song book
   - [ ] extract metadata
     - [ ] from filename
     - [ ] (perhaps pdf metadata if available)
-- [ ] Create Jinja LaTex templates from scan result
-  - [ ] include chordpro pdfs
+- [x] Create Jinja LaTex templates from scan result
+  - [x] include chordpro pdfs
   - [ ] include other pdfs (other songs, misc pdfs)
-- [ ] Write songbook LaTeX
+- [x] Write songbook LaTeX
 
 ## Getting Started
 
