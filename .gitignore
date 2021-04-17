@@ -427,6 +427,7 @@ cython_debug/
 # saved info in pickles
 *.pickle
 
-latex/chapters/songs/sections/*.tex
+latex/chapters/song-sections/*.tex
+
 
 .vscode/settings.json

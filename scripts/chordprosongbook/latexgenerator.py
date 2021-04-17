@@ -5,10 +5,11 @@ Generate LaTeX from ninja templates
 
 import os
 import jinja2
+import fnmatch
 
 
 try:
-   import cPickle as pickle
+   import cPickle as pickle #noqa
 except:
    import pickle
 
@@ -50,7 +51,26 @@ class LatexGenerator:
             
             section_chapter_title = section['name'].replace('&', '\&') # in case section title contains "&" (perhaps also in song file name titles need in special cases) 
             
-            document = template.render(section_name=section_chapter_title,songs=section['songs'])
+            document = template.render(section_name=section_chapter_title,songs=section['songs']['chordpro-songs'])
             output_file_name = f"{section['latex_include_section_name']}.tex"
             with open(os.path.join(self.path_song_sections_latex,output_file_name),'w') as output:
                 output.write(document)
+
+    def remove_previous_actions(self):
+        old_sections = [{"name": f.name, "path": f.path} for f in os.scandir(self.path_song_sections_latex) if f.is_dir()]
+
+        old_sections = [
+                {
+                    "name": f.name,
+                    "path": f.path
+                } 
+                for f in os.scandir(self.path_song_sections_latex)
+                    if f.is_file()
+                    if fnmatch.fnmatch(f,'*.tex')
+            ]
+        if not old_sections:
+            print('No latex sections to remove...')
+        else:
+            for section in old_sections:
+                os.remove(section['path'])
+                print(f"Removed latex section: {section['name']}")

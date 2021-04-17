@@ -22,17 +22,23 @@ class SongScanner:
             # python list comprehension tips: multiple if statements, multiple lines syntax
             # https://stackoverflow.com/a/15248356
             # https://stackoverflow.com/a/12372259
-            songs_of_section = [
+            section_chordpro_path = os.path.join(section['path'],'chordpro-songs')
+            if not os.path.exists(section_chordpro_path):
+                print(f"Info: Section \"{section['name']}\" does not contain chordpro songs.")
+                continue
+
+            chordpro_songs_of_section = [
                 {
                     "name": f.name,
                     "path": f.path
                 } 
-                for f in os.scandir(section['path'])
+                for f in os.scandir(section_chordpro_path)
                     if f.is_file()
                     if fnmatch.fnmatch(f,'*.cho')
             ]
-            
-            section["songs"] = songs_of_section
+            if not "songs" in section:
+                section["songs"] = {}
+            section["songs"]["chordpro-songs"] = chordpro_songs_of_section
 
     def extract_chordpro_metadata(self):
         # https://stackoverflow.com/questions/40972805/python-capture-contents-inside-curly-braces/40972959
@@ -40,7 +46,7 @@ class SongScanner:
 
         regex = r"\{(.*?)\}"
         for section in self.song_sections:
-            for song in section["songs"]:
+            for song in section["songs"]["chordpro-songs"]:
                 with open(song["path"]) as f:
                     # print (re.findall(regex,f.read(),re.MULTILINE))
                     matches = re.findall(regex,f.read())

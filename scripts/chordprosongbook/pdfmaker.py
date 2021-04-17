@@ -8,7 +8,7 @@ import subprocess
 import shutil
 
 try:
-   import cPickle as pickle
+   import cPickle as pickle #noqa
 except:
    import pickle
 
@@ -36,7 +36,7 @@ class PdfMaker:
             if not os.path.exists(section_output_dir_path):
                 os.makedirs(section_output_dir_path)
             
-            for song in section['songs']:
+            for song in section['songs']['chordpro-songs']:
                 # if song['name'] == "Marmor Stein Und Eisen Bricht.cho":
                     # print(song)
                 chordpro_file_path = song['path']
@@ -53,7 +53,13 @@ class PdfMaker:
                             
                 result = subprocess.run(command,capture_output=True)
                 song['chordpro_output'] = {'returncode': result.returncode, 'stdout': result.stdout.decode(),'stderr': result.stderr.decode()}
-                song['pdf_file_path'] = pdf_file_path
+                song['generated_pdf_include_path'] = pdf_file_path
+
+    def copy_and_rename_pdf_songs(self):
+        print('coming soon')
+
+    def merge_and_order_chordpro_and_pdf_songs(self):
+        print('coming soon')
 
     def save_configuration(self):
 
