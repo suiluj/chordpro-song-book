@@ -1,14 +1,14 @@
 # Song sections
 
-Import you chordpro and pdf files in different subfolders for each section
+Scripts will generate a song book from chordpro song files and pdf song files which will be included in a latex document.
 
-## Example
+## Example folder structure
 
-- songs/sections
-  - church songs
-    - chordpro
+- data/input/songs-sections
+  - church songs (will be name of section in songbook)
+    - chordpro-songs
       - <chordprosongfiles.cho>
-    - pdf
+    - pdf-songs
       - <pdfsongfiles.pdf>
 
 ## Explanation

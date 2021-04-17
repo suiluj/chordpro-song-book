@@ -428,3 +428,5 @@ cython_debug/
 *.pickle
 
 latex/chapters/songs/sections/*.tex
+
+.vscode/settings.json
