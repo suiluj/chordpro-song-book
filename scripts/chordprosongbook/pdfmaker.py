@@ -31,7 +31,7 @@ class PdfMaker:
 
         for section in self.song_sections:
             # print(section['name'])
-            section_output_dir_path = os.path.join(self.path_song_sections_pdf_includes,section['latex_include_section_name'])
+            section_output_dir_path = os.path.join(self.path_song_sections_pdf_includes,section['latex_include_section_name'],"chordpro-songs")
             section['section_output_dir_path'] = section_output_dir_path
             if not os.path.exists(section_output_dir_path):
                 os.makedirs(section_output_dir_path)
@@ -56,7 +56,35 @@ class PdfMaker:
                 song['generated_pdf_include_path'] = pdf_file_path
 
     def copy_and_rename_pdf_songs(self):
-        print('coming soon')
+        for section in self.song_sections:
+            if not "pdf-songs" in section["songs"]:
+                print(f"Info: Section \"{section['name']}\" does not contain pdf songs.")
+                continue
+            section_output_dir_path = os.path.join(self.path_song_sections_pdf_includes,section['latex_include_section_name'],"pdf-songs")
+            section['section_output_dir_path'] = section_output_dir_path
+            if not os.path.exists(section_output_dir_path):
+                os.makedirs(section_output_dir_path)
+            
+            for song in section['songs']['pdf-songs']:
+                # if song['name'] == "Marmor Stein Und Eisen Bricht.cho":
+                    # print(song)
+                original_pdf_file_path = song['path']
+                pdf_file_path = os.path.join(section_output_dir_path,os.path.splitext(song['name'])[0] + '.pdf')
+
+                shutil.copyfile(original_pdf_file_path,pdf_file_path)
+                
+                # command = ['chordpro']
+                
+                # if self.pdf_setting["paper_size"] == "a5":
+                #     command.append(f"--config={self.config_path_a5}")
+                # if "columns_a5" in song["metadata"] and song["metadata"]["columns_a5"] == '1':
+                #     command.append(f"--config={self.config_force_one_column_path}")
+                
+                # command.extend([f"--output={pdf_file_path}",original_pdf_file_path])
+                            
+                # result = subprocess.run(command,capture_output=True)
+                # song['chordpro_output'] = {'returncode': result.returncode, 'stdout': result.stdout.decode(),'stderr': result.stderr.decode()}
+                song['generated_pdf_include_path'] = pdf_file_path
 
     def merge_and_order_chordpro_and_pdf_songs(self):
         print('coming soon')

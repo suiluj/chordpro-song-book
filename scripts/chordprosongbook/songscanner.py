@@ -16,29 +16,30 @@ class SongScanner:
         self.song_sections = [{"name": f.name, "path": f.path} for f in os.scandir(self.path_input_song_sections) if f.is_dir()]
     
 
-    def detect_chordpro_songs(self):
+    def detect_songs_of_sections(self,subfolder,extension):
         for section in self.song_sections:
                 
             # python list comprehension tips: multiple if statements, multiple lines syntax
             # https://stackoverflow.com/a/15248356
             # https://stackoverflow.com/a/12372259
-            section_chordpro_path = os.path.join(section['path'],'chordpro-songs')
-            if not os.path.exists(section_chordpro_path):
-                print(f"Info: Section \"{section['name']}\" does not contain chordpro songs.")
+            section_subfolder_path = os.path.join(section['path'],subfolder)
+            if not os.path.exists(section_subfolder_path):
+                print(f"Info: Section \"{section['name']}\" does not contain a subfolder \"{subfolder}\".")
                 continue
 
-            chordpro_songs_of_section = [
+            songs_of_section_subfolder = [
                 {
                     "name": f.name,
                     "path": f.path
                 } 
-                for f in os.scandir(section_chordpro_path)
+                for f in os.scandir(section_subfolder_path)
                     if f.is_file()
-                    if fnmatch.fnmatch(f,'*.cho')
+                    if fnmatch.fnmatch(f,f'*.{extension}')
             ]
             if not "songs" in section:
                 section["songs"] = {}
-            section["songs"]["chordpro-songs"] = chordpro_songs_of_section
+            section["songs"][subfolder] = songs_of_section_subfolder
+
 
     def extract_chordpro_metadata(self):
         # https://stackoverflow.com/questions/40972805/python-capture-contents-inside-curly-braces/40972959
@@ -46,6 +47,11 @@ class SongScanner:
 
         regex = r"\{(.*?)\}"
         for section in self.song_sections:
+            
+            if not "chordpro-songs" in section["songs"]:
+                print(f"Info: Section \"{section['name']}\" does not contain chordpro songs.")
+                continue
+
             for song in section["songs"]["chordpro-songs"]:
                 with open(song["path"]) as f:
                     # print (re.findall(regex,f.read(),re.MULTILINE))
