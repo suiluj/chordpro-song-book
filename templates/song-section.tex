@@ -5,7 +5,7 @@
 \BLOCK{ for song in songs }
 
 \includepdf[pages=-,addtotoc={
-	1,section,1,\VAR{song.metadata.title} - \VAR{song.metadata.artist},\VAR{song.metadata.title} - \VAR{song.metadata.artist}}]
+	1,section,1,\VAR{song.latex_title},}] \#{keep , at the end but do not use title as ref because of special characters problem}
 	{\VAR{song['generated_pdf_include_path']}}
 
 \BLOCK{ endfor }

@@ -18,6 +18,7 @@ class PdfMaker:
         self.path_song_sections_pdf_includes = os.path.normpath(path_song_sections_pdf_includes)
 
         for section in self.song_sections:
+            # use this as escape for section name: https://stackoverflow.com/a/5843547
             section['latex_include_section_name'] = section['name'].replace(',', '').replace(' ', '-').replace('&', '')
         
         self.config_path_a5 = os.path.normpath('../settings/chordpro-configs/a5-2column.json')
@@ -40,6 +41,7 @@ class PdfMaker:
                 # if song['name'] == "Marmor Stein Und Eisen Bricht.cho":
                     # print(song)
                 chordpro_file_path = song['path']
+                # rename pdf file like this: https://stackoverflow.com/a/5843547
                 pdf_file_path = os.path.join(section_output_dir_path,os.path.splitext(song['name'])[0] + '.pdf')
                 
                 command = ['chordpro']
@@ -69,6 +71,7 @@ class PdfMaker:
                 # if song['name'] == "Marmor Stein Und Eisen Bricht.cho":
                     # print(song)
                 original_pdf_file_path = song['path']
+                # rename pdf file like this: https://stackoverflow.com/a/5843547
                 pdf_file_path = os.path.join(section_output_dir_path,os.path.splitext(song['name'])[0] + '.pdf')
 
                 shutil.copyfile(original_pdf_file_path,pdf_file_path)
