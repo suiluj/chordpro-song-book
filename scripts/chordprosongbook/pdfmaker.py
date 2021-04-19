@@ -6,6 +6,7 @@ Rename PDF songs for latex imports
 import os
 import subprocess
 import shutil
+import re
 
 try:
    import cPickle as pickle #noqa
@@ -16,10 +17,6 @@ class PdfMaker:
     def __init__(self,song_sections,path_song_sections_pdf_includes):
         self.song_sections = song_sections
         self.path_song_sections_pdf_includes = os.path.normpath(path_song_sections_pdf_includes)
-
-        for section in self.song_sections:
-            # use this as escape for section name: https://stackoverflow.com/a/5843547
-            section['latex_include_section_name'] = section['name'].replace(',', '').replace(' ', '-').replace('&', '')
         
         self.config_path_a5 = os.path.normpath('../settings/chordpro-configs/a5-2column.json')
         self.config_force_one_column_path = os.path.normpath('../settings/chordpro-configs/force_one_column.json')
@@ -27,12 +24,15 @@ class PdfMaker:
             "paper_size": "a5"
         }
         # print(os.getcwd())
+
+    def get_alphanumeric(self,string: str):
+        return re.sub('[^A-Za-z0-9]+', '', string)
     
     def generate_chordpro_song_pdfs(self):
 
         for section in self.song_sections:
             # print(section['name'])
-            section_output_dir_path = os.path.join(self.path_song_sections_pdf_includes,section['latex_include_section_name'],"chordpro-songs")
+            section_output_dir_path = os.path.join(self.path_song_sections_pdf_includes,section['title_include_path_and_ref'],"chordpro-songs")
             section['section_output_dir_path'] = section_output_dir_path
             if not os.path.exists(section_output_dir_path):
                 os.makedirs(section_output_dir_path)
@@ -42,7 +42,7 @@ class PdfMaker:
                     # print(song)
                 chordpro_file_path = song['path']
                 # rename pdf file like this: https://stackoverflow.com/a/5843547
-                pdf_file_path = os.path.join(section_output_dir_path,os.path.splitext(song['name'])[0] + '.pdf')
+                pdf_file_path = os.path.join(section_output_dir_path,song['title_include_path_and_ref'] + '.pdf')
                 
                 command = ['chordpro']
                 
@@ -62,7 +62,7 @@ class PdfMaker:
             if not "pdf-songs" in section["songs"]:
                 print(f"Info: Section \"{section['name']}\" does not contain pdf songs.")
                 continue
-            section_output_dir_path = os.path.join(self.path_song_sections_pdf_includes,section['latex_include_section_name'],"pdf-songs")
+            section_output_dir_path = os.path.join(self.path_song_sections_pdf_includes,section['title_include_path_and_ref'],"pdf-songs")
             section['section_output_dir_path'] = section_output_dir_path
             if not os.path.exists(section_output_dir_path):
                 os.makedirs(section_output_dir_path)
@@ -72,7 +72,7 @@ class PdfMaker:
                     # print(song)
                 original_pdf_file_path = song['path']
                 # rename pdf file like this: https://stackoverflow.com/a/5843547
-                pdf_file_path = os.path.join(section_output_dir_path,os.path.splitext(song['name'])[0] + '.pdf')
+                pdf_file_path = os.path.join(section_output_dir_path,song['title_include_path_and_ref'] + '.pdf')
 
                 shutil.copyfile(original_pdf_file_path,pdf_file_path)
                 
@@ -89,8 +89,6 @@ class PdfMaker:
                 # song['chordpro_output'] = {'returncode': result.returncode, 'stdout': result.stdout.decode(),'stderr': result.stderr.decode()}
                 song['generated_pdf_include_path'] = pdf_file_path
 
-    def merge_and_order_chordpro_and_pdf_songs(self):
-        print('coming soon')
 
     def save_configuration(self):
 

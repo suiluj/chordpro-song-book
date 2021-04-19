@@ -4,6 +4,7 @@
 import os
 import fnmatch
 import re
+from pylatexenc.latexencode import unicode_to_latex
 
 class SongScanner:
     def __init__(self,path_input_song_sections):
@@ -11,9 +12,40 @@ class SongScanner:
         
         # print(os.getcwd())
     
+    def get_alphanumeric(self,string: str):
+        return re.sub('[^A-Za-z0-9]+', '', string)
+
     def detect_song_sections(self):
         # https://stackoverflow.com/a/59938961 (always use scandir)
-        self.song_sections = [{"name": f.name, "path": f.path} for f in os.scandir(self.path_input_song_sections) if f.is_dir()]
+        # self.song_sections = [{"name": f.name, "path": f.path} for f in os.scandir(self.path_input_song_sections) if f.is_dir()]
+
+        gen = (f for f in os.scandir(self.path_input_song_sections) if f.is_dir())
+            
+        self.song_sections = []
+        for f in gen:
+            if f.name.startswith('#'):
+                s = os.path.splitext(f.name)[0]
+                title = s[s.index(' ') + 1:].strip()
+                order = s[1:s.index(' ')].strip()
+            else:
+                title = os.path.splitext(f.name)[0]
+                order = float("inf")
+
+            title_latex = unicode_to_latex(title)
+            title_include_path_and_ref = self.get_alphanumeric(title)            
+            
+            self.song_sections.append(
+                {
+                    'name': f.name,
+                    'path': f.path,
+                    'title': title,
+                    'title_latex': title_latex,
+                    'title_include_path_and_ref': title_include_path_and_ref,
+                    'order': order
+                }
+            )
+
+
     
 
     def detect_songs_of_sections(self,subfolder,extension):
@@ -27,15 +59,44 @@ class SongScanner:
                 print(f"Info: Section \"{section['name']}\" does not contain a subfolder \"{subfolder}\".")
                 continue
 
-            songs_of_section_subfolder = [
-                {
-                    "name": f.name,
-                    "path": f.path
-                } 
-                for f in os.scandir(section_subfolder_path)
-                    if f.is_file()
-                    if fnmatch.fnmatch(f,f'*.{extension}')
-            ]
+            # songs_of_section_subfolder = [
+            #     {
+            #         "name": f.name,
+            #         "path": f.path
+            #     } 
+            #     for f in os.scandir(section_subfolder_path)
+            #         if f.is_file()
+            #         if fnmatch.fnmatch(f,f'*.{extension}')
+            # ]
+
+            gen = (f for f in os.scandir(section_subfolder_path) if f.is_file() if fnmatch.fnmatch(f,f'*.{extension}'))
+            
+            songs_of_section_subfolder = []
+            for f in gen:
+                # print(f)
+                
+                if f.name.startswith('#'):
+                    s = os.path.splitext(f.name)[0]
+                    title = s[s.index(' ') + 1:].strip()
+                    order = s[1:s.index(' ')].strip()
+                else:
+                    title = os.path.splitext(f.name)[0]
+                    order = float("inf")
+
+                title_latex = unicode_to_latex(title)
+                title_include_path_and_ref = self.get_alphanumeric(title)            
+                
+                songs_of_section_subfolder.append(
+                    {
+                        'name': f.name,
+                        'path': f.path,
+                        'title': title,
+                        'title_latex': title_latex,
+                        'title_include_path_and_ref': title_include_path_and_ref,
+                        'order': order
+                    }
+                )
+
             if not "songs" in section:
                 section["songs"] = {}
             section["songs"][subfolder] = songs_of_section_subfolder
@@ -73,3 +134,11 @@ class SongScanner:
                                 break
                         if not missing_keys: break
                     song["metadata"] = metadata
+
+                    title = ""
+                    if 'title' in metadata: title += metadata['title']
+                    if 'artist' in metadata: title += f" - {metadata['artist']}"
+                    song["title"] = title
+                    song["title_latex"] = unicode_to_latex(title)
+                    song["title_include_path_and_ref"] = self.get_alphanumeric(title)
+

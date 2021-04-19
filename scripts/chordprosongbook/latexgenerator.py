@@ -6,6 +6,7 @@ Generate LaTeX from ninja templates
 import os
 import jinja2
 import fnmatch
+import re
 from pylatexenc.latexencode import unicode_to_latex
 
 try:
@@ -14,6 +15,7 @@ except:
    import pickle
 
 # include pdf toc ref: https://tex.stackexchange.com/a/15995
+
 
 class LatexGenerator:
     def __init__(self,path_song_sections_pdf_includes,path_song_sections_latex,path_template_folder):
@@ -56,7 +58,20 @@ class LatexGenerator:
     #                             .replace('^', '\\textasciicircum') 
                                 
     #     return escaped_string
+    
+    def get_alphanumeric(self,string: str):
+        return re.sub('[^A-Za-z0-9]+', '', string)
+
+    def merge_songs_per_section(self):
+        for section in self.song_sections:
+            merged_songs = []
+            for k in section['songs']:
+                songs = section['songs'][k]
+                for song in songs:
+                    # print(song['name'])
+                    merged_songs.append(song)
                     
+            section['merged_songs'] = merged_songs
 
     def generate_song_sections(self):
         template = self.latex_jinja_env.get_template('song-section.tex')
@@ -66,15 +81,11 @@ class LatexGenerator:
             #print(section['name'])
             #pp.pprint(section['songs'])
             
-            section_chapter_title = unicode_to_latex(section['name']) # in case section title contains "&" (perhaps also in song file name titles need in special cases) 
+            # section_chapter_title = unicode_to_latex(section['name']) # in case section title contains "&" (perhaps also in song file name titles need in special cases) 
             
-            for song in section['merged_songs']:
-                song['latex_title'] = unicode_to_latex(song['latex_title'])
-                # song['latex_toc_ref'] escape special characters... but just do not use ref in template at the moment
-                # use this: https://stackoverflow.com/a/5843560
 
-            document = template.render(section_name=section_chapter_title,songs=section['merged_songs'])
-            output_file_name = f"{section['latex_include_section_name']}.tex"
+            document = template.render(section=section,songs=section['merged_songs'])
+            output_file_name = f"{section['title_include_path_and_ref']}.tex"
             with open(os.path.join(self.path_song_sections_latex,output_file_name),'w') as output:
                 output.write(document)
 
@@ -88,7 +99,7 @@ class LatexGenerator:
                 } 
                 for f in os.scandir(self.path_song_sections_latex)
                     if f.is_file()
-                    if fnmatch.fnmatch(f,'*.tex')
+                    if not fnmatch.fnmatch(f,'*.md') # keep README.md
             ]
         if not old_sections:
             print('No latex sections to remove...')

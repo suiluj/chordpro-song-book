@@ -1,11 +1,12 @@
 
-\chapter{\VAR{section_name}}
+\chapter{\VAR{section.title_latex}}
+\label{ch:song-section-\VAR{section.title_include_path_and_ref}}
 \thispagestyle{empty}
 
 \BLOCK{ for song in songs }
 
 \includepdf[pages=-,addtotoc={
-	1,section,1,\VAR{song.latex_title},}] \#{keep , at the end but do not use title as ref because of special characters problem}
+	1,section,1,\VAR{song.title_latex},sec:song-\VAR{section.title_include_path_and_ref}-\VAR{song.title_include_path_and_ref}}] \#{use alphanumeric string as label ref}
 	{\VAR{song['generated_pdf_include_path']}}
 
 \BLOCK{ endfor }
