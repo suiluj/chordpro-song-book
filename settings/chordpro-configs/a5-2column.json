@@ -65,7 +65,7 @@
       // Page margins.
       // Note that top/bottom exclude the head/footspace.
       "margintop"    :  60,
-      "marginbottom" :  20,
+      "marginbottom" :  40,
       "marginleft"   :  25,
       "marginright"  :  25,
       "headspace"    :  40,
@@ -258,7 +258,7 @@
 	  },
 	  "chord" : {
 	      "name" : "Helvetica-Oblique",
-	      "size" : 9
+	      "size" : 8
 	  },
 	  "chordfingers" : {
 	      "name" : "ZapfDingbats",

@@ -11,3 +11,12 @@
 
 - [mac add pdflatex alias path to bash_profile](https://superuser.com/questions/1038612/where-do-i-get-the-pdflatex-program-for-mac)
 - [Inserting a PDF file in LaTeX](https://stackoverflow.com/questions/2739159/inserting-a-pdf-file-in-latex)
+- [page numbering](https://tex.stackexchange.com/a/194444)
+- [detailed example for bottom far out left right numbering (including pdf includes)](https://tex.stackexchange.com/a/218772)
+- [scrbook info links](https://latex.org/forum/viewtopic.php?p=95014&sid=1ff09f554999d439c3736bef40660f23#p95014)
+  - [german original koma script scrguide.pdf](http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/koma-script/doc/scrguide.pdf)
+  - [direct link to guide (english translation of german original)](https://texdoc.org/serve/scrguien/0)
+- [move page numbering margin to bottom](https://tex.stackexchange.com/a/53167)
+  ```
+  \usepackage[bottom=10em]{geometry}
+  ```
