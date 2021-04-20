@@ -22,6 +22,14 @@ normalheadings,DIV=9,twoside=false]{scrbook}
 
 \usepackage[bottom=6em]{geometry}
 
+\usepackage{imakeidx}
+\makeindex[columns=1,title=Alphabetische Songliste]
+
+% für index tools befehle make index ausführen und nochmal generieren lassen:
+% https://tex.stackexchange.com/a/98215
+% https://www.namsu.de/Extra/pakete/Makeidx.html
+% alternative imakeidx package: https://ftp.rrze.uni-erlangen.de/ctan/macros/latex/contrib/imakeidx/imakeidx.pdf
+
 %\usepackage[sc]{mathpazo}
 %\linespread{1.05} 
 
@@ -126,5 +134,8 @@ Sing mal \hyperref[sec:song-VolksliederRockPopDeutsch-99LuftballonsNena]{99 Luft
 %Just some notes, not visible in pdf.
 %\end{comment}
 
+
+%https://www.namsu.de/Extra/pakete/Makeidx.html
+\printindex
 
 \end{document}
