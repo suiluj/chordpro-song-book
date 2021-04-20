@@ -23,7 +23,7 @@ normalheadings,DIV=9,twoside=false]{scrbook}
 \usepackage[bottom=6em]{geometry}
 
 \usepackage{imakeidx}
-\makeindex[columns=1,title=Alphabetische Songliste]
+\makeindex[columns=1,title=Alphabetische Songliste, intoc]
 % use imakeindex style files: https://www.overleaf.com/learn/latex/indices#Using_style_files
 
 % für index tools befehle make index ausführen und nochmal generieren lassen:
@@ -111,7 +111,14 @@ normalheadings,DIV=9,twoside=false]{scrbook}
 
 \tableofcontents
 
+
 \newpage
+
+
+%%https://www.namsu.de/Extra/pakete/Makeidx.html
+%% not working at beginning of document: https://tex.stackexchange.com/questions/193460/unable-to-print-index-at-the-beginning-of-the-document
+%\printindex
+%\newpage
 
 \chapter{Info}
 
@@ -135,8 +142,8 @@ Sing mal \hyperref[sec:song-VolksliederRockPopDeutsch-99LuftballonsNena]{99 Luft
 %Just some notes, not visible in pdf.
 %\end{comment}
 
-
 %https://www.namsu.de/Extra/pakete/Makeidx.html
+% or imakeidx
 \printindex
 
 \end{document}
