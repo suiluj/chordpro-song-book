@@ -29,7 +29,7 @@ class SongScanner:
                 order = s[1:s.index(' ')].strip()
             else:
                 title = os.path.splitext(f.name)[0]
-                order = float("inf")
+                order = "mmm" # do not use float("inf") because cannot compare str and float; use three "m" as middle to be able to add more later
 
             title_latex = unicode_to_latex(title)
             title_include_path_and_ref = self.get_alphanumeric(title)            
@@ -81,7 +81,7 @@ class SongScanner:
                     order = s[1:s.index(' ')].strip()
                 else:
                     title = os.path.splitext(f.name)[0]
-                    order = float("inf")
+                    order = "mmm" # do not use float("inf") because cannot compare str and float; use three "m" as middle to be able to add more later
 
                 title_latex = unicode_to_latex(title)
                 title_include_path_and_ref = self.get_alphanumeric(title)            

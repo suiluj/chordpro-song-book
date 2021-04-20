@@ -73,8 +73,16 @@ class LatexGenerator:
                     
             section['merged_songs'] = merged_songs
 
-    def generate_song_sections(self):
-        template = self.latex_jinja_env.get_template('song-section.tex')
+    def sort_merged_songs_per_section(self):
+        for section in self.song_sections:
+            section['merged_songs'] = sorted(section['merged_songs'], key=lambda k: (k['order'],k['title_include_path_and_ref'])) 
+
+    def sort_song_sections(self):
+        self.song_sections = sorted(self.song_sections, key=lambda k: (k['order'],k['title_include_path_and_ref']))
+        # self.song_sections = [self.song_sections.pop()]
+
+    def generate_songs_of_section(self):
+        template = self.latex_jinja_env.get_template('songs-of-section.tex')
 
         for section in self.song_sections:
             # pp.pprint(section)
@@ -88,6 +96,14 @@ class LatexGenerator:
             output_file_name = f"{section['title_include_path_and_ref']}.tex"
             with open(os.path.join(self.path_song_sections_latex,output_file_name),'w') as output:
                 output.write(document)
+    
+    def generate_song_sections(self):
+        template = self.latex_jinja_env.get_template('song-sections.tex')
+
+        document = template.render(sections=self.song_sections)
+        output_file_name = "song-sections.tex"
+        with open(os.path.join(self.path_song_sections_latex,output_file_name),'w') as output:
+            output.write(document)
 
     def remove_previous_actions(self):
         old_sections = [{"name": f.name, "path": f.path} for f in os.scandir(self.path_song_sections_latex) if f.is_dir()]
