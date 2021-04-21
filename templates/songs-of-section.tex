@@ -5,7 +5,12 @@
 \newpage
 \BLOCK{ for song in songs }
 
+
+\BLOCK{ for multi_title_latex in song.multi_titles_latex }
+\index{\VAR{multi_title_latex}}
+\BLOCK{ else }
 \index{\VAR{song.title_latex}}
+\BLOCK{ endfor }
 \includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={
 	1,section,1,\VAR{song.title_latex},sec:song-\VAR{section.title_include_path_and_ref}-\VAR{song.title_include_path_and_ref}}] \#{use alphanumeric string as label ref}
 	{\VAR{song['generated_pdf_include_path']}}

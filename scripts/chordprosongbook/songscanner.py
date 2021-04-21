@@ -75,6 +75,7 @@ class SongScanner:
             for f in gen:
                 # print(f)
                 
+                # check order information
                 if f.name.startswith('#'):
                     s = os.path.splitext(f.name)[0]
                     title = s[s.index(' ') + 1:].strip()
@@ -84,7 +85,13 @@ class SongScanner:
                     order = "mmm" # do not use float("inf") because cannot compare str and float; use three "m" as middle to be able to add more later
 
                 title_latex = unicode_to_latex(title)
-                title_include_path_and_ref = self.get_alphanumeric(title)            
+                title_include_path_and_ref = self.get_alphanumeric(title)
+
+                # check multi titles
+                multi_titles_latex = []
+
+                if "|" in title:
+                    multi_titles_latex = [unicode_to_latex(x.strip()) for x in title.split('|')]
                 
                 songs_of_section_subfolder.append(
                     {
@@ -92,6 +99,7 @@ class SongScanner:
                         'path': f.path,
                         'title': title,
                         'title_latex': title_latex,
+                        'multi_titles_latex': multi_titles_latex,
                         'title_include_path_and_ref': title_include_path_and_ref,
                         'order': order
                     }
