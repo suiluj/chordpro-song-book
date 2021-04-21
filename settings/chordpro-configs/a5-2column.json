@@ -9,7 +9,7 @@
       // Transcoding.
       "transcode" : "common",
       // Always decapoize.
-      "decapo" : true,
+      "decapo" : false,
     },
 
     // Metadata.
@@ -178,7 +178,7 @@
 	  "title" : {
 	      // Title and subtitle.
 	      "title"     : [ "", "%{title} - %{artist}", "" ],
-	      "subtitle"  : [ "", "%{_key|Key: %{}}", "" ],
+	      "subtitle"  : [ "%{capo| Capo entfernen!: %{}}", "%{key|Key: %{}}", "%{capo| Capo entfernen!: %{}}" ], // https://www.chordpro.org/chordpro/directives-transpose/
 	      // Footer with page number.
 	      "footer"    : null
 	  },
@@ -266,7 +266,7 @@
 	  },
 	  "comment" : {
 	      "name" : "Helvetica",
-	      "size" : 9,
+	      "size" : 10,
 	      "background" : "#E5E5E5"
 	  },
 	  "comment_italic" : {
