@@ -23,8 +23,9 @@ normalheadings,DIV=9,twoside=false]{scrbook}
 \usepackage[bottom=6em]{geometry}
 
 \usepackage{imakeidx}
-\makeindex[columns=1,title=Alphabetische Songliste, intoc]
+\makeindex[options=-s indexstyle.ist,columns=1,title=Alphabetische Songliste, intoc]
 % use imakeindex style files: https://www.overleaf.com/learn/latex/indices#Using_style_files
+% custom line dotted: https://tex.stackexchange.com/questions/132465/right-aligning-pagenumbers-in-index-with-imakeindex
 
 % für index tools befehle make index ausführen und nochmal generieren lassen:
 % https://tex.stackexchange.com/a/98215
