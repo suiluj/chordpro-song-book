@@ -9,7 +9,7 @@
       // Transcoding.
       "transcode" : "common",
       // Always decapoize.
-      "decapo" : false,
+      //"decapo" : false, // use --decapo in command for correct key print: https://github.com/ChordPro/chordpro/issues/140
     },
 
     // Metadata.
@@ -178,7 +178,7 @@
 	  "title" : {
 	      // Title and subtitle.
 	      "title"     : [ "", "%{title} - %{artist}", "" ],
-	      "subtitle"  : [ "%{capo| Capo entfernen!: %{}}", "%{key|Key: %{}}", "%{capo| Capo entfernen!: %{}}" ], // https://www.chordpro.org/chordpro/directives-transpose/
+	      "subtitle"  : [ "%{capo| Capo: %{}}", "%{key|Key: %{}}", "" ], // https://www.chordpro.org/chordpro/directives-transpose/
 	      // Footer with page number.
 	      "footer"    : null
 	  },

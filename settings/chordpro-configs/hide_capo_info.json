@@ -1,0 +1,17 @@
+
+{
+    "pdf" : {
+      // Formats.
+      "formats" : {
+	  // The first page of a song has:
+	  "title" : {
+	      // Title and subtitle.
+	      "title"     : [ "", "%{title} - %{artist}", "" ],
+	      "subtitle"  : [ "", "%{key|Key: %{}}", "" ], // https://www.chordpro.org/chordpro/directives-transpose/
+	      // Footer with page number.
+	      "footer"    : null
+	  },
+      },
+    },
+}
+// End of config.
