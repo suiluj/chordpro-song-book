@@ -16,6 +16,21 @@ try:
 except:
    import pickle
 
+key_info_list = [ # https://www.piano-keyboard-guide.com/music-theory-lesson-major-keys-key-signatures-scales-in-circle-of-fifths-order/
+    {'key_major_minor': ['C','Am'], 'sharp': True},
+    {'key_major_minor': ['Db','Bbm'], 'sharp': False},
+    {'key_major_minor': ['D','Bm'], 'sharp': True},
+    {'key_major_minor': ['Eb','Cm'], 'sharp': False},
+    {'key_major_minor': ['E','C#m'], 'sharp': True},
+    {'key_major_minor': ['F','Dm'], 'sharp': False},
+    {'key_major_minor': ['Gb','F#','Ebm','D#m'], 'sharp': False},
+    {'key_major_minor': ['G','Em'], 'sharp': True},
+    {'key_major_minor': ['Ab','Fm'], 'sharp': False},
+    {'key_major_minor': ['A','F#m'], 'sharp': True},
+    {'key_major_minor': ['Bb','Gm'], 'sharp': False},
+    {'key_major_minor': ['B','G#m'], 'sharp': True}
+] # or better format to later get the correct transpose direction
+
 class PdfMaker:
     def __init__(self,song_sections,path_song_sections_pdf_includes):
         self.song_sections = song_sections
@@ -24,6 +39,7 @@ class PdfMaker:
         self.config_path_a5 = os.path.normpath('../settings/chordpro-configs/a5-2column.json')
         self.config_force_one_column_path = os.path.normpath('../settings/chordpro-configs/force_one_column.json')
         self.config_hide_capo_info_path = os.path.normpath('../settings/chordpro-configs/hide_capo_info.json')
+        self.config_capo_key_in_brackets_path = os.path.normpath('../settings/chordpro-configs/capo_key_in_brackets.json')
         self.pdf_setting = {
             "paper_size": "a5"
         }
@@ -55,41 +71,31 @@ class PdfMaker:
                 if "columns_a5" in song["metadata"] and song["metadata"]["columns_a5"] == '1':
                     command.append(f"--config={self.config_force_one_column_path}")
                 
-                if decapo and 'capo' in song['metadata'] and 'key' in song['metadata']:
-                    # command.append("--decapo") # do not use decapo but custom --transpose (depending on destination key flat or sharp)
-                    # also print or not print capo information
-                    # and print Capo-Key when printing Key of Capo (or actual key always? still to decide)
-                    key = song['metadata']['key']
-                    capo = int(song['metadata']['capo'])
-                    key_info_list = [ # https://www.piano-keyboard-guide.com/music-theory-lesson-major-keys-key-signatures-scales-in-circle-of-fifths-order/
-                        {'key_major_minor': ['C','Am'], 'sharp': True},
-                        {'key_major_minor': ['Db','Bbm'], 'sharp': False},
-                        {'key_major_minor': ['D','Bm'], 'sharp': True},
-                        {'key_major_minor': ['Eb','Cm'], 'sharp': False},
-                        {'key_major_minor': ['E','C#m'], 'sharp': True},
-                        {'key_major_minor': ['F','Dm'], 'sharp': False},
-                        {'key_major_minor': ['Gb','F#','Ebm','D#m'], 'sharp': False},
-                        {'key_major_minor': ['G','Em'], 'sharp': True},
-                        {'key_major_minor': ['Ab','Fm'], 'sharp': False},
-                        {'key_major_minor': ['A','F#m'], 'sharp': True},
-                        {'key_major_minor': ['Bb','Gm'], 'sharp': False},
-                        {'key_major_minor': ['B','G#m'], 'sharp': True}
-                    ] # or better format to later get the correct transpose direction
-                    # compare lowercase strings
-                    for i, key_info in enumerate(key_info_list):
-                        if key in key_info['key_major_minor']:
-                            from_key_index = i
-                            logger.debug(f"from_key_index: {from_key_index} | capo: {capo}")
-                            destination_key_index = from_key_index + capo % 12
-                            logger.debug(f"destination_key_index: {destination_key_index}")
-                            if key_info_list[destination_key_index]['sharp']:
-                                transpose = capo
-                            else:
-                                transpose = capo - 12
-                            logger.debug(f"transpose: {transpose}")
+                if 'capo' in song['metadata'] and 'key' in song['metadata']:
+                    if decapo:
+                        # command.append("--decapo") # do not use decapo but custom --transpose (depending on destination key flat or sharp)
+                        # also print or not print capo information
+                        # and print Capo-Key when printing Key of Capo (or actual key always? still to decide)
+                        key = song['metadata']['key']
+                        capo = int(song['metadata']['capo'])
+                        
+                        # compare lowercase strings
+                        for i, key_info in enumerate(key_info_list):
+                            if key.lower() in [k.lower() for k in key_info['key_major_minor']]:
+                                from_key_index = i
+                                logger.debug(f"from_key_index: {from_key_index} | capo: {capo}")
+                                destination_key_index = (from_key_index + capo) % 12
+                                logger.debug(f"destination_key_index: {destination_key_index}")
+                                if key_info_list[destination_key_index]['sharp']:
+                                    transpose = capo
+                                else:
+                                    transpose = capo - 12
+                                logger.debug(f"transpose: {transpose}")
 
-                            command.append(f"--config={self.config_hide_capo_info_path}")
-                            command.append(f"--transpose={transpose}")
+                                command.append(f"--config={self.config_hide_capo_info_path}")
+                                command.append(f"--transpose={transpose}")
+                    else:
+                        command.append(f"--config={self.config_capo_key_in_brackets_path}")
 
                         
 

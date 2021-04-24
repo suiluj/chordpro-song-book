@@ -7,7 +7,7 @@
 	  "title" : {
 	      // Title and subtitle.
 	      "title"     : [ "", "%{title} - %{artist}", "" ],
-	      "subtitle"  : [ "", "", "%{key|Key: %{}}" ], // https://www.chordpro.org/chordpro/directives-transpose/
+	      "subtitle"  : [ "%{capo| Capo: %{}}", "", "%{key|(Key: %{})}" ], // https://www.chordpro.org/chordpro/directives-transpose/
 	      // Footer with page number.
 	      "footer"    : null
 	  },
