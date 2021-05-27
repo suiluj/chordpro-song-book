@@ -2,13 +2,30 @@
 % Body text font is Palatino!
 %
 
+% no empty pages when starting chapter on twoside https://tex.stackexchange.com/a/46196
+
 \documentclass[a5paper,pagesize,10pt,bibtotoc,pointlessnumbers,
-normalheadings,DIV=9,twoside=false]{scrbook}
+normalheadings,BCOR=10mm,DIV=calc,openany,twoside=true]{scrbook}
+
+\newcommand*{\includepdfsong}[4]{
+	
+	\includepdf[offset=5mm 0,pages=-,pagecommand={\thispagestyle{plain}},addtotoc={
+		1,section,1,#1,sec:song-#2-#3}] 
+	{#4}
+	
+}
+
+%custom area or better presets: https://stackoverflow.com/a/62811606/5628238
+\areaset[current]{120.00mm}{170mm}
 
 % twoside, openright
-\KOMAoptions{DIV=last}
+%\KOMAoptions{DIV=last}
+
+%\usepackage{showframe}
 
 \usepackage{trajan}
+
+\usepackage{blindtext}
  
 \usepackage[ngerman]{babel}
 \usepackage[utf8]{inputenc}
@@ -20,7 +37,7 @@ normalheadings,DIV=9,twoside=false]{scrbook}
 
 \usepackage{pdfpages}
 
-\usepackage[bottom=6em]{geometry}
+%\usepackage[bottom=6em]{geometry}
 
 \usepackage{imakeidx}
 \makeindex[options=-s indexstyle.ist,columns=1,title=Alphabetische Songliste, intoc]
@@ -125,10 +142,12 @@ normalheadings,DIV=9,twoside=false]{scrbook}
 
 In diesem Liederbuch werden die einzelnen Lieder als PDFs automatisch per Script eingebunden.\\
 
+\blindtext[5]
+
 %Sing mal \autoref{sec:song-VolksliederRockPopDeutsch-99LuftballonsNena}
 
 
-Sing mal \hyperref[sec:song-VolksliederRockPopDeutsch-99LuftballonsNena]{99 Luftballons}! :)
+%Sing mal \hyperref[sec:song-VolksliederRockPopDeutsch-99LuftballonsNena]{99 Luftballons}! :)
 
 
 \include{chapters/song-sections/song-sections}
