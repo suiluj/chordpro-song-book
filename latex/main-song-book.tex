@@ -9,14 +9,16 @@ normalheadings,BCOR=10mm,DIV=calc,openany,twoside=true]{scrbook}
 
 \newcommand*{\includepdfsong}[4]{
 	
-	\includepdf[offset=5mm 0,pages=-,pagecommand={\thispagestyle{plain}},addtotoc={
+	\includepdf[width=\textwidth,offset=3.5mm 0,pages=-,pagecommand={\thispagestyle{plain}},addtotoc={
 		1,section,1,#1,sec:song-#2-#3}] 
 	{#4}
 	
 }
 
 %custom area or better presets: https://stackoverflow.com/a/62811606/5628238
-\areaset[current]{120.00mm}{170mm}
+
+% DIN A5: 148 x 210 mm
+\areaset[current]{130.00mm}{180mm}
 
 % twoside, openright
 %\KOMAoptions{DIV=last}
