@@ -114,24 +114,23 @@ class PdfMaker:
         )
         template = env.get_template('chordpro_section_generation_logs.md')
 
-        document = template.render(section=self.song_sections[0])
-        output_file_name = f"Chordpro Logs {self.song_sections[0]['name']}.md"
-        with open(os.path.join(self.song_sections[0]['section_output_dir_path'],output_file_name),'w') as output:
-            output.write(document)
+        # document = template.render(section=self.song_sections[0])
+        # output_file_name = f"Chordpro Logs {self.song_sections[0]['name']}.md"
+        # with open(os.path.join(self.song_sections[0]['section_output_dir_path'],output_file_name),'w') as output:
+        #     output.write(document)
             
         for section in self.song_sections:
             
             
-            print(section['section_output_dir_path'])
-            chordpro_output_of_section = [song['chordpro_output']  for song in section['songs'][extension]]
-            print(chordpro_output_of_section)
+            # print(section['section_output_dir_path'])
+            # chordpro_output_of_section = [song['chordpro_output']  for song in section['songs'][extension]]
+            # print(chordpro_output_of_section)
 
             document = template.render(section=section,songs=section['songs'][extension])
-            output_file_name = f"Chordpro Logs {section['name']}.md"
-            with open(os.path.join(section['section_output_dir_path'],output_file_name),'w') as output:
+            output_file_name = "README.md"
+            with open(os.path.join(section['path'],output_file_name),'w') as output:
                 output.write(document)
 
-            break
 
         
 
