@@ -431,3 +431,5 @@ latex/chapters/song-sections/*.tex
 
 
 .vscode/settings.json
+
+Chordpro Logs*.md

@@ -15,11 +15,13 @@ class SongScanner:
     def get_alphanumeric(self,string: str):
         return re.sub('[^A-Za-z0-9]+', '', string)
 
-    def detect_song_sections(self):
+    def detect_song_sections(self,sections_base_path=None):
         # https://stackoverflow.com/a/59938961 (always use scandir)
         # self.song_sections = [{"name": f.name, "path": f.path} for f in os.scandir(self.path_input_song_sections) if f.is_dir()]
 
-        gen = (f for f in os.scandir(self.path_input_song_sections) if f.is_dir())
+        if not sections_base_path:
+            sections_base_path = self.path_input_song_sections
+        gen = (f for f in os.scandir(sections_base_path) if f.is_dir())
             
         self.song_sections = []
         for f in gen:
@@ -48,7 +50,7 @@ class SongScanner:
 
     
 
-    def detect_songs_of_sections(self,subfolder,extension):
+    def detect_songs_of_sections(self,extension,subfolder=""):
         for section in self.song_sections:
                 
             # python list comprehension tips: multiple if statements, multiple lines syntax
@@ -71,7 +73,7 @@ class SongScanner:
 
             gen = (f for f in os.scandir(section_subfolder_path) if f.is_file() if fnmatch.fnmatch(f,f'*.{extension}'))
             
-            songs_of_section_subfolder = []
+            new_songs_of_section = []
             for f in gen:
                 # print(f)
                 
@@ -93,7 +95,7 @@ class SongScanner:
                 if "|" in title:
                     multi_titles_latex = [unicode_to_latex(x.strip()) for x in title.split('|')]
                 
-                songs_of_section_subfolder.append(
+                new_songs_of_section.append(
                     {
                         'name': f.name,
                         'path': f.path,
@@ -107,21 +109,24 @@ class SongScanner:
 
             if not "songs" in section:
                 section["songs"] = {}
-            section["songs"][subfolder] = songs_of_section_subfolder
+
+            if not extension in section["songs"]:
+                section["songs"][extension] = []
+            section["songs"][extension].extend(new_songs_of_section)
 
 
-    def extract_chordpro_metadata(self):
+    def extract_chordpro_metadata(self,extension="cho"):
         # https://stackoverflow.com/questions/40972805/python-capture-contents-inside-curly-braces/40972959
         # https://stackoverflow.com/questions/11310567/python-re-match-string-in-a-file/11310926
 
         regex = r"\{(.*?)\}"
         for section in self.song_sections:
             
-            if not "chordpro-songs" in section["songs"]:
-                print(f"Info: Section \"{section['name']}\" does not contain chordpro songs.")
+            if not extension in section["songs"]:
+                print(f"Info: Section \"{section['name']}\" does not contain songs with the extension \"{extension}\".")
                 continue
 
-            for song in section["songs"]["chordpro-songs"]:
+            for song in section["songs"][extension]:
                 with open(song["path"]) as f:
                     # print (re.findall(regex,f.read(),re.MULTILINE))
                     matches = re.findall(regex,f.read())

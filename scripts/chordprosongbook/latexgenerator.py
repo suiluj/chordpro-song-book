@@ -59,8 +59,6 @@ class LatexGenerator:
                                 
     #     return escaped_string
     
-    def get_alphanumeric(self,string: str):
-        return re.sub('[^A-Za-z0-9]+', '', string)
 
     def merge_songs_per_section(self):
         for section in self.song_sections:

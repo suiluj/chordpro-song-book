@@ -8,6 +8,7 @@ import subprocess
 import shutil
 import re
 import logging
+import jinja2
 
 logger = logging.getLogger(__name__)
 
@@ -48,16 +49,16 @@ class PdfMaker:
     def get_alphanumeric(self,string: str):
         return re.sub('[^A-Za-z0-9]+', '', string)
     
-    def generate_chordpro_song_pdfs(self,decapo=False):
+    def generate_chordpro_song_pdfs(self,extension="cho",decapo=False):
 
         for section in self.song_sections:
             # print(section['name'])
-            section_output_dir_path = os.path.join(self.path_song_sections_pdf_includes,section['title_include_path_and_ref'],"chordpro-songs")
+            section_output_dir_path = os.path.join(self.path_song_sections_pdf_includes,section['title_include_path_and_ref'],extension)
             section['section_output_dir_path'] = section_output_dir_path
             if not os.path.exists(section_output_dir_path):
                 os.makedirs(section_output_dir_path)
             
-            for song in section['songs']['chordpro-songs']:
+            for song in section['songs'][extension]:
                 # if song['name'] == "Marmor Stein Und Eisen Bricht.cho":
                     # print(song)
                 chordpro_file_path = song['path']
@@ -104,6 +105,36 @@ class PdfMaker:
                 result = subprocess.run(command,capture_output=True)
                 song['chordpro_output'] = {'returncode': result.returncode, 'stdout': result.stdout.decode(),'stderr': result.stderr.decode()}
                 song['generated_pdf_include_path'] = pdf_file_path
+
+    
+    def create_chordpro_generation_logs(self,extension="cho"):
+        path_template_folder = os.path.normpath('../templates/')
+        env = jinja2.Environment(
+            loader=jinja2.FileSystemLoader(os.path.abspath(path_template_folder))
+        )
+        template = env.get_template('chordpro_section_generation_logs.md')
+
+        document = template.render(section=self.song_sections[0])
+        output_file_name = f"Chordpro Logs {self.song_sections[0]['name']}.md"
+        with open(os.path.join(self.song_sections[0]['section_output_dir_path'],output_file_name),'w') as output:
+            output.write(document)
+            
+        for section in self.song_sections:
+            
+            
+            print(section['section_output_dir_path'])
+            chordpro_output_of_section = [song['chordpro_output']  for song in section['songs'][extension]]
+            print(chordpro_output_of_section)
+
+            document = template.render(section=section,songs=section['songs'][extension])
+            output_file_name = f"Chordpro Logs {section['name']}.md"
+            with open(os.path.join(section['section_output_dir_path'],output_file_name),'w') as output:
+                output.write(document)
+
+            break
+
+        
+
 
     def copy_and_rename_pdf_songs(self):
         for section in self.song_sections:
@@ -160,6 +191,7 @@ class PdfMaker:
             print('Removed old configuration')
         else:
             print('There was not an old configuration.')
+
         
                 
             
