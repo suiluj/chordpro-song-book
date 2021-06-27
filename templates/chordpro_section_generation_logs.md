@@ -5,7 +5,6 @@
 
 ---
 {%for song in songs%}
-
 ## Errors für "{{song.name}}"
 
 ```text
