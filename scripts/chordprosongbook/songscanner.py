@@ -15,7 +15,7 @@ class SongScanner:
     def get_alphanumeric(self,string: str):
         return re.sub('[^A-Za-z0-9]+', '', string)
 
-    def detect_song_sections(self,sections_base_path=None):
+    def detect_song_sections(self,sections_base_path=None,select_sections=None):
         # https://stackoverflow.com/a/59938961 (always use scandir)
         # self.song_sections = [{"name": f.name, "path": f.path} for f in os.scandir(self.path_input_song_sections) if f.is_dir()]
 
@@ -34,18 +34,22 @@ class SongScanner:
                 order = "mmm" # do not use float("inf") because cannot compare str and float; use three "m" as middle to be able to add more later
 
             title_latex = unicode_to_latex(title)
-            title_include_path_and_ref = self.get_alphanumeric(title)            
+            title_include_path_and_ref = self.get_alphanumeric(title)
+
+            section = {
+                'name': f.name,
+                'path': f.path,
+                'title': title,
+                'title_latex': title_latex,
+                'title_include_path_and_ref': title_include_path_and_ref,
+                'order': order
+            }           
             
-            self.song_sections.append(
-                {
-                    'name': f.name,
-                    'path': f.path,
-                    'title': title,
-                    'title_latex': title_latex,
-                    'title_include_path_and_ref': title_include_path_and_ref,
-                    'order': order
-                }
-            )
+            if not select_sections:
+                self.song_sections.append(section)
+            else:
+                if section['name'] in select_sections:
+                    self.song_sections.append(section)
 
 
     

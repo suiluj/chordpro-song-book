@@ -258,7 +258,7 @@
 	  },
 	  "chord" : {
 	      "name" : "Helvetica-Oblique",
-	      "size" : 8
+	      "size" : 9
 	  },
 	  "chordfingers" : {
 	      "name" : "ZapfDingbats",
@@ -267,7 +267,8 @@
 	  "comment" : {
 	      "name" : "Helvetica",
 	      "size" : 10,
-	      "background" : "#E5E5E5"
+	      "background" : "#E5E5E5",
+		  "frame" : 1
 	  },
 	  "comment_italic" : {
 	      "name" : "Helvetica-Oblique",

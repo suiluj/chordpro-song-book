@@ -9,6 +9,7 @@ import shutil
 import re
 import logging
 import jinja2
+import io
 
 logger = logging.getLogger(__name__)
 
@@ -106,7 +107,30 @@ class PdfMaker:
                 song['chordpro_output'] = {'returncode': result.returncode, 'stdout': result.stdout.decode(),'stderr': result.stderr.decode()}
                 song['generated_pdf_include_path'] = pdf_file_path
 
-    
+    def filter_chordpro_generation_logs_stderr(self,section,extension):
+
+        exclude_logs = [
+            "Config error: unknown item pdf.fonts.comment.frame",
+            "columns_a5"
+        ]
+
+        for song in section['songs'][extension]:
+            stderr = song['chordpro_output']['stderr']
+            stderr_filtered = ""
+            with io.StringIO(stderr) as fi:
+                for line in fi:
+                    print_log_line = True
+                    for exclude_log in exclude_logs:
+
+                        if exclude_log in line:
+                            print_log_line = False
+                            continue
+                    if print_log_line:
+                        stderr_filtered += line + "\n"
+                    
+
+            song['chordpro_output']['stderr_filtered'] = stderr_filtered
+
     def create_chordpro_generation_logs(self,extension="cho"):
         path_template_folder = os.path.normpath('../templates/')
         env = jinja2.Environment(
@@ -120,7 +144,7 @@ class PdfMaker:
         #     output.write(document)
             
         for section in self.song_sections:
-            
+            self.filter_chordpro_generation_logs_stderr(section,extension)
             
             # print(section['section_output_dir_path'])
             # chordpro_output_of_section = [song['chordpro_output']  for song in section['songs'][extension]]
